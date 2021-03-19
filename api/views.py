@@ -25,6 +25,10 @@ def student_get(request):
         serializer=studentSerializer(stu,many=True)
         json_data=JSONRenderer().render(serializer.data)
         return HttpResponse(json_data,content_type='application/json')
+    stu=student.objects.all()
+    serializer=studentSerializer(stu,many=True)
+    json_data=JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data,content_type='application/json')
 
 @csrf_exempt
 def student_post(request):
@@ -38,14 +42,12 @@ def student_post(request):
             msg={'msg':'data has been saved successfully'}
             json_data=JSONRenderer().render(msg)
             return HttpResponse(json_data, content_type='application/json')
-        msg={'msg':'Some error occured'}
-        json_data=JSONRenderer().render(msg)
+
+        json_data=JSONRenderer().render(serializer.errors)
         return HttpResponse(json_data,content_type='application/json')
+    stu=student.objects.all()
+    serializer=studentSerializer(stu,many=True)
+    json_data=JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data,content_type='application/json')
     
 
-def student_put(request):
-    if request.method=='PUT':
-        json_data=request.body
-        stream=io.BytesIO(stream)
-        python_data=JSONParser().parse(stream)
-        
