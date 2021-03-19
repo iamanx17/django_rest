@@ -15,15 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apiv3 import views
+from v4 import views
+
 
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.StudentApi.as_view()),
-    path('<int:pk>/',views.StudentApi.as_view()),
+    path('',views.studentListCreate.as_view()),
+    path('rud/<int:pk>',views.studentRetrieveUpdateDestroy.as_view()),
+
 
  
 
